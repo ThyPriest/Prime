@@ -6,6 +6,7 @@
 #include "LayerStack.h"
 #include "GameTime.h"
 #include "Prime/Renderer/Renderer.h"
+#include "AssetManager.h"
 
 namespace Prime
 {
@@ -35,6 +36,7 @@ namespace Prime
 		Dispatcher::Shutdown();
 		LayerStack::Shutdown();
 		GameTime::Shutdown();
+		AssetManager::Shutdown();
 		Logger::Shutdown();
 	}
 

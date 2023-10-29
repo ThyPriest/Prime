@@ -2,6 +2,7 @@
 
 #include "Prime/Core/Core.h"
 #include "RenderCommand.h"
+#include "Camera2D.h"
 
 namespace Prime
 {
@@ -13,7 +14,7 @@ namespace Prime
 
 		static const API GetAPI() { return RendererAPI::GetAPI(); }
 
-		//static void BeginScene2D(Camera2D& camera2D);
+		static void BeginScene2D(Camera2D& camera2D);
 		static void EndScene2D();
 
 		// Primitives

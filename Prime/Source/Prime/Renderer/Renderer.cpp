@@ -1,6 +1,7 @@
 
 #include "pch.h"
 #include "Renderer.h"
+#include "Prime/Core/AssetManager.h"
 
 namespace Prime
 {
@@ -18,10 +19,12 @@ namespace Prime
 		s_Data = nullptr;
 	}
 
-	/*void Renderer::BeginScene2D(Camera2D& camera2D)
+	void Renderer::BeginScene2D(Camera2D& camera2D)
 	{
-
-	}*/
+		auto shader = AssetManager::GetShader("Quad2D");
+		shader->Bind();
+		shader->SetMat4("u_ViewProjectionMatrix", camera2D.GetViewProjectionMatrix());
+	}
 
 	void Renderer::EndScene2D()
 	{
@@ -57,6 +60,8 @@ namespace Prime
 
 		Ref<IndexBuffer> QuadIB = IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 		s_Data->QuadVertexArray->SetIndexBuffer(QuadIB);
+
+		AssetManager::LoadShader("Quad2D", "assets/Shaders/Quad2D.vert", "assets/Shaders/Quad2D.frag");
 	}
 
 	void Renderer::Flush()

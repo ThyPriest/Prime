@@ -9,6 +9,7 @@
 #include "Core/Window.h"
 #include "Core/LayerStack.h"
 #include "Core/GameTime.h"
+#include "Core/AssetManager.h"
 
 // Event
 #include "Event/EventSystem.h"
@@ -26,3 +27,5 @@
 #include "Renderer/RendererAPI.h"
 #include "Renderer/Buffer.h"
 #include "Renderer/VertexArray.h"
+#include "Renderer/Camera2DController.h"
+#include "Renderer/Shader.h"

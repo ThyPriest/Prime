@@ -17,6 +17,6 @@ namespace Prime
 		void SubscribeToEvents() override;
 
 	private:
-		//Camera2DController m_Camera2DController;
+		Camera2DController m_Camera2DController;
 	};
 }
