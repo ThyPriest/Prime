@@ -1,0 +1,15 @@
+# Binaries
+bin/
+bin-obj/
+
+
+# python files
+scripts/__pycache__/
+
+
+# Visual Studio files and folder
+.vs/
+**.sln
+**.vcxproj
+**.vcxproj.filters
+**.vcxproj.user
