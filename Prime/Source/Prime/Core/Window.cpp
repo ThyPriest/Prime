@@ -1,6 +1,8 @@
 
 #include "pch.h"
 #include "Window.h"
+#include "GLFW/glfw3.h"
+#include "Prime/Event/EventSystem.h"
 
 namespace Prime
 {
@@ -72,7 +74,7 @@ namespace Prime
 
 	void Window::InitializeCallbacks()
 	{
-		/*glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
+		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
 			{
 				Dispatcher::PostEvent<WindowCloseEvent>();
 			});
@@ -138,6 +140,5 @@ namespace Prime
 			{
 				Dispatcher::PostEvent<MouseMovedEvent>((float)xPos, (float)yPos);
 			});
-	}*/
 	}
 }

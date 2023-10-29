@@ -7,6 +7,8 @@
 #include "Core/Application.h"
 #include "Core/Logger.h"
 #include "Core/Window.h"
+#include "Core/LayerStack.h"
+#include "Core/GameTime.h"
 
 // Event
 #include "Event/EventSystem.h"
@@ -22,3 +24,5 @@
 #include "Renderer/RenderCommand.h"
 #include "Renderer/Renderer.h"
 #include "Renderer/RendererAPI.h"
+#include "Renderer/Buffer.h"
+#include "Renderer/VertexArray.h"

@@ -1,5 +1,6 @@
 
 #include "Prime/Core/EntryPoint.h"
+#include "TerraLayer.h"
 
 namespace Prime
 {
@@ -9,7 +10,7 @@ namespace Prime
 		TerraApplication(ApplicationSpec& spec)
 			: Application(spec)
 		{
-
+			LayerStack::PushLayer(new TerraLayer());
 		}
 
 		~TerraApplication() override

@@ -1,6 +1,7 @@
 
 #include "pch.h"
 #include "Input.h"
+#include "GLFW/glfw3.h"
 #include "Prime/Core/Application.h"
 
 #define win Prime::Application::Get().GetWindow().GetWindowHandle()
