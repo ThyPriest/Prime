@@ -21,6 +21,11 @@ namespace Prime
 		void Bind(uint32_t slot = 0) const override;
 		void UnBind() const override;
 
+		virtual bool operator==(const Texture2D& other) const override
+		{
+			return m_RendererID == static_cast<const OpenGLTexture2D&>(other).m_RendererID;
+		}
+
 	private:
 		void Load();
 

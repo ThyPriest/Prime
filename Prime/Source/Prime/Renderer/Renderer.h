@@ -4,6 +4,7 @@
 #include "RenderCommand.h"
 #include "Camera2D.h"
 #include "Texture.h"
+#include <array>
 
 namespace Prime
 {
@@ -46,6 +47,7 @@ namespace Prime
 			glm::vec3 Position = glm::vec3(.0f);
 			glm::vec4 Color = glm::vec4(1.0f);
 			glm::vec2 TexCoord = glm::vec2(.2f);
+			float TexIndex = .0f;
 		};
 
 		struct Data
@@ -56,13 +58,16 @@ namespace Prime
 			const uint32_t MaxVertices = MaxQuads * 4;
 			const uint32_t MaxIndices = MaxQuads * 6;
 			uint32_t QuadIndexCount = 0;
+			static const uint32_t MaxTextureSlots = 16;
+			uint32_t TextureSlotIndex = 1;
 
 			Ref<VertexArray> QuadVertexArray;
 			Ref<VertexBuffer> QuadVertexBuffer;
-			Ref<Texture2D> WhiteTexture;
 
 			QuadVertex* QuadVertexBufferBase = nullptr;
 			QuadVertex* QuadVertexBufferPtr = nullptr;
+
+			std::array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
 		};
 
 		static Data* s_Data;

@@ -31,6 +31,8 @@ namespace Prime
 	public:
 		virtual ~Texture2D() = default;
 
+		virtual bool operator==(const Texture2D& other) const = 0;
+
 		static Ref<Texture2D> Create(uint32_t width, uint32_t height, Filter filter);
 	};
 }

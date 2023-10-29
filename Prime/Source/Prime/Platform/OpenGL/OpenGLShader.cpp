@@ -70,6 +70,12 @@ namespace Prime
 		glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, glm::value_ptr(value));
 	}
 
+	void OpenGLShader::SetIntArray(const std::string& name, int* value, uint32_t count)
+	{
+		glUniform1iv(GetUniformLocation(name), count, value);
+
+	}
+
 	int OpenGLShader::GetUniformLocation(const std::string& name)
 	{
 		auto it = m_UniformLocations.find(name);

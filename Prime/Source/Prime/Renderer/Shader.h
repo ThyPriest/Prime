@@ -20,6 +20,7 @@ namespace Prime
 		virtual void SetFloat3(const std::string& name, const glm::vec3& value) = 0;
 		virtual void SetFloat4(const std::string& name, const glm::vec4& value) = 0;
 		virtual void SetMat4(const std::string& name, const glm::mat4& value) = 0;
+		virtual void SetIntArray(const std::string& name, int* value, uint32_t count) = 0;
 
 		static Ref<Shader> Create(const std::string& vertSource, const std::string& fragSource);
 	};
