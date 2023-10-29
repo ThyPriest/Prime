@@ -8,7 +8,7 @@ namespace Prime
 	class Texture
 	{
 	public:
-		enum class TextureFilter
+		enum class Filter
 		{
 			Nearest,
 			Linear
@@ -31,6 +31,6 @@ namespace Prime
 	public:
 		virtual ~Texture2D() = default;
 
-		static Ref<Texture2D> Create(uint32_t width, uint32_t height, TextureFilter filter);
+		static Ref<Texture2D> Create(uint32_t width, uint32_t height, Filter filter);
 	};
 }

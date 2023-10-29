@@ -8,6 +8,8 @@ namespace Prime
 	{
 		m_Camera2DController = Camera2DController(1.7776);
 		m_Camera2DController.SubscribeToEvents();
+
+		AssetManager::LoadTexture2D("assets/Textures/logo.png", "Logo", Texture2D::Filter::Nearest);
 	}
 
 	void TerraLayer::Detach()
@@ -22,7 +24,8 @@ namespace Prime
 
 		Renderer::BeginScene2D(m_Camera2DController.GetCamera());
 
-		Renderer::DrawQuad2D({.0f, .0f, .0f}, {.4f, .4f}, { 1.0f, .0f, .0f, 1.0f });
+		Renderer::DrawQuad2D({-.8f, .0f, .0f}, {.4f, .4f}, { 1.0f, .0f, .0f, 1.0f });
+		Renderer::DrawTexture2D(AssetManager::GetTexture2D("Logo"), { .0f, .0f, .0f }, { .8f, .8f }, { 1.0f, 1.0f, 1.0f, 1.0f });
 
 		Renderer::EndScene2D();
 	}

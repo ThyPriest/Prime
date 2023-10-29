@@ -17,6 +17,8 @@ project "Prime"
         "Prime.lua",
         "Source/**.h",
         "Source/**.cpp",
+        "vendor/stb_image/**.h",
+        "vendor/stb_image/**.cpp"
     }
 
 
@@ -26,7 +28,8 @@ project "Prime"
         "%{IncludeDirs.spdlog}",
         "%{IncludeDirs.GLFW}",
         "%{IncludeDirs.Glad}",
-        "%{IncludeDirs.glm}"
+        "%{IncludeDirs.glm}",
+        "%{IncludeDirs.stb}",
     }
 
 

@@ -54,12 +54,22 @@ namespace Prime
 
 	void Renderer::DrawTexture2D(Ref<Texture2D>& texture, Quad2D& quad)
 	{
-
+		DrawTexture2D(texture, quad.Posiition, quad.Size, quad.Color);
 	}
 
 	void Renderer::DrawTexture2D(Ref<Texture2D>& texture, const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color)
 	{
+		auto shader = AssetManager::GetShader("Quad2D");
+		shader->SetFloat4("u_Color", color);
+		texture->Bind();
 
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) *
+			glm::scale(glm::mat4(1.0f), glm::vec3(size, 1.0f));
+
+		shader->SetMat4("u_Transform", transform);
+
+		s_Data->QuadVertexArray->Bind();
+		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
 	}
 
 	void Renderer::InitializeQuadRendering()
@@ -89,7 +99,7 @@ namespace Prime
 
 		AssetManager::LoadShader("Quad2D", "assets/Shaders/Quad2D.vert", "assets/Shaders/Quad2D.frag");
 
-		s_Data->WhiteTexture = Texture2D::Create(1, 1, Texture2D::TextureFilter::Linear);
+		s_Data->WhiteTexture = Texture2D::Create(1, 1, Texture2D::Filter::Linear);
 	}
 
 	void Renderer::Flush()

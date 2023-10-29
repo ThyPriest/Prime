@@ -2,11 +2,11 @@
 #include "pch.h"
 #include "Texture.h"
 #include "Renderer.h"
-#include "Prime/Platform/OpenGL/OpenGLTexture2D.h"
+#include "Prime/Platform/OpenGL/OpenGLTexture.h"
 
 namespace Prime
 {
-	Ref<Texture2D> Texture2D::Create(uint32_t width, uint32_t height, TextureFilter filter)
+	Ref<Texture2D> Texture2D::Create(uint32_t width, uint32_t height, Filter filter)
 	{
 		switch (Renderer::GetAPI())
 		{
