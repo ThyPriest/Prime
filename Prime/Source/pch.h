@@ -15,3 +15,4 @@
 
 #include "Prime/Core/Core.h"
 #include "Prime/Config/Config.h"
+#include "GLFW/glfw3.h"

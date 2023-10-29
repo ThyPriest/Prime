@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Core.h"
-#include <string>
+#include "Window.h"
 
 int main(int argc, char** argv);
 
@@ -26,6 +26,7 @@ namespace Prime
 
 	private:
 		ApplicationSpec m_Spec;
+		Window m_Window;
 
 		bool m_Running = true;
 		friend int::main(int argc, char** argv);

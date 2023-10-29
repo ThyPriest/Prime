@@ -27,6 +27,7 @@ workspace "Prime"
 
 
     group "Dependencies"
-        
+        include "Prime/vendor/GLFW/GLFW.lua"
+        include "Prime/vendor/Glad/Glad.lua"
     group ""
 

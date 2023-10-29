@@ -23,13 +23,15 @@ project "Prime"
     includedirs
     {
         "Source",
-        "%{IncludeDirs.spdlog}"
+        "%{IncludeDirs.spdlog}",
+        "%{IncludeDirs.GLFW}",
+        "%{IncludeDirs.Glad}"
     }
 
 
     links
     {
-        
+        "GLFW", "Glad"
     }
 
 

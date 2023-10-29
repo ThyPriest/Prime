@@ -11,10 +11,13 @@ namespace Prime
 		Info();
 
 		m_Spec = spec;
+		m_Window.Initialize(spec.Title, spec.Width, spec.Height, spec.Vsync);
+		m_Window.ContextInfo();
 	}
 
 	Application::~Application()
 	{
+		m_Window.Shutdown();
 		Logger::Shutdown();
 	}
 
@@ -22,7 +25,7 @@ namespace Prime
 	{
 		while (m_Running)
 		{
-
+			m_Window.Update();
 		}
 	}
 

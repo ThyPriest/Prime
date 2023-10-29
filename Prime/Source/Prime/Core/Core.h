@@ -27,4 +27,9 @@ namespace Prime
 	{
 		return std::make_shared<TClass>(std::forward<TArgs>(args)...);
 	}
+
+	enum class API
+	{
+		OpenGL, DirectX
+	};
 }
