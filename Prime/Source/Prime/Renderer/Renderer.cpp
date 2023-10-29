@@ -2,6 +2,7 @@
 #include "pch.h"
 #include "Renderer.h"
 #include "Prime/Core/AssetManager.h"
+#include "glm/gtc/matrix_transform.hpp"
 
 namespace Prime
 {
@@ -24,6 +25,8 @@ namespace Prime
 		auto shader = AssetManager::GetShader("Quad2D");
 		shader->Bind();
 		shader->SetMat4("u_ViewProjectionMatrix", camera2D.GetViewProjectionMatrix());
+
+		s_Data->WhiteTexture->Bind();
 	}
 
 	void Renderer::EndScene2D()
@@ -31,25 +34,48 @@ namespace Prime
 		Flush();
 	}
 
-	void Renderer::DrawQuad2D()
+	void Renderer::DrawQuad2D(Quad2D& quad)
 	{
+		DrawQuad2D(quad.Posiition, quad.Size, quad.Color);
+	}
+
+	void Renderer::DrawQuad2D(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color)
+	{
+		auto shader = AssetManager::GetShader("Quad2D");
+		shader->SetFloat4("u_Color", color);
+
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) *
+			glm::scale(glm::mat4(1.0f), glm::vec3(size, 1.0f));
+
+		shader->SetMat4("u_Transform", transform);
 		s_Data->QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
 	}
 
+	void Renderer::DrawTexture2D(Ref<Texture2D>& texture, Quad2D& quad)
+	{
+
+	}
+
+	void Renderer::DrawTexture2D(Ref<Texture2D>& texture, const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color)
+	{
+
+	}
+
 	void Renderer::InitializeQuadRendering()
 	{
-		float vertices[4 * 3] = {
-			-.5f, -.5f, .0f,
-			 .5f, -.5f, .0f,
-			 .5f,  .5f, .0f,
-			-.5f,  .5f, .0f,
+		float vertices[5 * 4] = {
+			-.5f, -.5f, .0f,  .0f,  .0f, 
+			 .5f, -.5f, .0f,  1.0f, .0f,
+			 .5f,  .5f, .0f,  1.0f, 1.0f,
+			-.5f,  .5f, .0f,  .0f,  1.0f
 		};
 
 		uint32_t indices[6] = { 0, 1, 2, 2, 3, 0 };
 
 		BufferLayout quadLayout = {
-			{ShaderDataType::Float3, "a_Position", false},
+			{ ShaderDataType::Float3, "a_Position", false },
+			{ ShaderDataType::Float2, "a_TextCoord", false }
 		};
 
 		s_Data->QuadVertexArray = VertexArray::Create();
@@ -62,6 +88,8 @@ namespace Prime
 		s_Data->QuadVertexArray->SetIndexBuffer(QuadIB);
 
 		AssetManager::LoadShader("Quad2D", "assets/Shaders/Quad2D.vert", "assets/Shaders/Quad2D.frag");
+
+		s_Data->WhiteTexture = Texture2D::Create(1, 1, Texture2D::TextureFilter::Linear);
 	}
 
 	void Renderer::Flush()

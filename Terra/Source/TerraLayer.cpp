@@ -22,7 +22,7 @@ namespace Prime
 
 		Renderer::BeginScene2D(m_Camera2DController.GetCamera());
 
-		Renderer::DrawQuad2D();
+		Renderer::DrawQuad2D({.0f, .0f, .0f}, {.4f, .4f}, { 1.0f, .0f, .0f, 1.0f });
 
 		Renderer::EndScene2D();
 	}

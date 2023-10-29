@@ -29,3 +29,4 @@
 #include "Renderer/VertexArray.h"
 #include "Renderer/Camera2DController.h"
 #include "Renderer/Shader.h"
+#include "Renderer/Texture.h"
