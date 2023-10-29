@@ -8,6 +8,15 @@
 #include "Core/Logger.h"
 #include "Core/Window.h"
 
+// Event
+#include "Event/EventSystem.h"
+
+// Input
+#include "Input/Input.h"
+#include "Input/KeyCode.h"
+#include "Input/ModCode.h"
+#include "Input/MouseCode.h"
+
 // Renderer
 #include "Renderer/GraphicsContext.h"
 #include "Renderer/RenderCommand.h"

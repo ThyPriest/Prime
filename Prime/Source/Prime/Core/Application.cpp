@@ -2,11 +2,17 @@
 #include "pch.h"
 #include "Application.h"
 #include "Logger.h"
+#include "Prime/Event/EventSystem.h"
 
 namespace Prime
 {
+	Application* Application::s_Instance = nullptr;
+
 	Application::Application(ApplicationSpec& spec)
 	{
+		PRIME_ASSERT(s_Instance != nullptr, "Application already exist");
+		s_Instance = this;
+
 		Logger::Initialize();
 		Info();
 
@@ -18,6 +24,7 @@ namespace Prime
 	Application::~Application()
 	{
 		m_Window.Shutdown();
+		Dispatcher::Shutdown();
 		Logger::Shutdown();
 	}
 

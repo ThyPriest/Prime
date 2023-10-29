@@ -25,7 +25,8 @@ project "Prime"
         "Source",
         "%{IncludeDirs.spdlog}",
         "%{IncludeDirs.GLFW}",
-        "%{IncludeDirs.Glad}"
+        "%{IncludeDirs.Glad}",
+        "%{IncludeDirs.glm}"
     }
 
 

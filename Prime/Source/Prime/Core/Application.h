@@ -20,11 +20,15 @@ namespace Prime
 		Application(ApplicationSpec& spec);
 		virtual ~Application();
 
+		static Application& Get() { return *s_Instance; }
+		Window& GetWindow() { return m_Window; }
+
 	private:
 		void Run();
 		void Info();
 
 	private:
+		static Application* s_Instance;
 		ApplicationSpec m_Spec;
 		Window m_Window;
 
