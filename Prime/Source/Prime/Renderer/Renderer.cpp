@@ -10,18 +10,24 @@ namespace Prime
 
 	void Renderer::Initialize()
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		RenderCommand::Initialize();
 		InitializeQuadRendering();
 	}
 
 	void Renderer::Shutdown()
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		delete s_Data;
 		s_Data = nullptr;
 	}
 
 	void Renderer::BeginScene2D(Camera2D& camera2D)
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		auto shader = AssetManager::GetShader("Quad2D");
 		shader->Bind();
 		shader->SetMat4("u_ViewProjectionMatrix", camera2D.GetViewProjectionMatrix());
@@ -35,6 +41,8 @@ namespace Prime
 
 	void Renderer::EndScene2D()
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		uint32_t dataSize = (uint8_t*)s_Data->QuadVertexBufferPtr - (uint8_t*)s_Data->QuadVertexBufferBase;
 		s_Data->QuadVertexBuffer->SetData(s_Data->QuadVertexBufferBase, dataSize);
 
@@ -48,6 +56,8 @@ namespace Prime
 
 	void Renderer::DrawQuad2D(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color)
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		const float texIndex = .0f; // white texture
 
 		s_Data->QuadVertexBufferPtr->Position = pos;
@@ -84,6 +94,8 @@ namespace Prime
 
 	void Renderer::DrawTexture2D(Ref<Texture2D>& texture, const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color)
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		float textureIndex = .0f;
 		for (uint32_t x = 1; x < s_Data->TextureSlotIndex; x++)
 		{
@@ -129,6 +141,8 @@ namespace Prime
 
 	void Renderer::InitializeQuadRendering()
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		BufferLayout quadLayout = {
 			{ ShaderDataType::Float3, "a_Position", false },
 			{ ShaderDataType::Float4, "a_Color",    false },
@@ -179,6 +193,8 @@ namespace Prime
 
 	void Renderer::Flush()
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		for (uint32_t x = 0; x <= s_Data->TextureSlotIndex; x++)
 		{
 			s_Data->TextureSlots[x]->Bind(x);

@@ -14,6 +14,8 @@ namespace Prime
 
 	Application::Application(ApplicationSpec& spec)
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		PRIME_ASSERT(s_Instance != nullptr, "Application already exist");
 		s_Instance = this;
 
@@ -32,6 +34,8 @@ namespace Prime
 
 	Application::~Application()
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		m_Window.Shutdown();
 		Dispatcher::Shutdown();
 		LayerStack::Shutdown();
@@ -43,6 +47,9 @@ namespace Prime
 
 	void Application::Run()
 	{
+		PRIME_PROFILE_FUNCTION();
+
+		GameTime::Tick();
 		SubscribeToEvent();
 
 		while (m_Running)
@@ -54,6 +61,8 @@ namespace Prime
 
 	void Application::Info()
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		Logger::Info("Prime {}.{}.{}", 1, 1, 0);
 
 #ifdef PRIME_DEBUG
@@ -75,6 +84,8 @@ namespace Prime
 	
 	void Application::SubscribeToEvent()
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		Dispatcher::SubscribeToEvent<WindowCloseEvent>(this, &Application::OnWindowClose);
 		Dispatcher::SubscribeToEvent<WindowResizeEvent>(this, &Application::OnWindowResize);
 		Dispatcher::SubscribeToEvent<KeyPressedEvent>(this, &Application::OnKeyPressed);
@@ -84,13 +95,17 @@ namespace Prime
 
 	void Application::OnKeyPressed(const Event& event)
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		KeyPressedEvent e = Dispatcher::CastToEvent<KeyPressedEvent>(event);
 		if (e.GetKeyCode() == Key::Escape) { Quit(); }
 	}
 
 	void Application::OnWindowResize(const Event& event)
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		WindowResizeEvent e = Dispatcher::CastToEvent<WindowResizeEvent>(event);
-		//RenderCommand::SetViewport(e.GetWidth(), e.GetHeight());
+		RenderCommand::SetViewport(e.GetWidth(), e.GetHeight());
 	}
 }

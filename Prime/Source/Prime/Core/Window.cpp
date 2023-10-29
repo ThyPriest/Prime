@@ -24,6 +24,8 @@ namespace Prime
 
 	void Window::Initialize(std::string title, uint32_t width, uint32_t height, bool vsync)
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		m_Data.Title = title;
 		m_Data.Width = width;
 		m_Data.Height = height;
@@ -45,6 +47,8 @@ namespace Prime
 
 	void Window::Shutdown()
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		glfwDestroyWindow(m_Window);
 		--s_WindowCount;
 
@@ -56,6 +60,8 @@ namespace Prime
 
 	void Window::SetVsync(bool vsync)
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		if (vsync) { glfwSwapInterval(1); }
 		if (vsync == false) { glfwSwapInterval(0); }
 		m_Data.Vsync = vsync;
@@ -68,6 +74,8 @@ namespace Prime
 
 	void Window::Update()
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		glfwPollEvents();
 		m_GraphicsContext->SwapBuffer();
 	}

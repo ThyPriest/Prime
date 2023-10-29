@@ -11,6 +11,8 @@ namespace Prime
 
 	void AssetManager::Shutdown()
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		s_Data->Shaders.clear();
 		delete s_Data;
 		s_Data = nullptr;
@@ -19,6 +21,8 @@ namespace Prime
 	// Shader
 	void AssetManager::LoadShader(const std::string& name, const std::string& vertSrc, const std::string& fragSrc)
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		Ref<Shader> shader;
 
 		switch (Renderer::GetAPI())
@@ -41,18 +45,24 @@ namespace Prime
 
 	void AssetManager::AddShader(const std::string& name, Ref<Shader>& shader)
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		PRIME_ASSERT(ShaderExists(name), "Shader already exist!");
 		s_Data->Shaders[name] = shader;
 	}
 
 	Ref<Shader>& AssetManager::GetShader(const std::string& name)
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		PRIME_ASSERT(!ShaderExists(name), "Shader not found!");
 		return s_Data->Shaders[name];
 	}
 
 	bool AssetManager::ShaderExists(const std::string& name)
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		return s_Data->Shaders.find(name) != s_Data->Shaders.end();
 	}
 
@@ -60,6 +70,8 @@ namespace Prime
 	// Texture
 	void AssetManager::LoadTexture2D(const std::string& path, const std::string& name, Texture2D::Filter filter)
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		Ref<Texture2D> texture;
 
 		switch (Renderer::GetAPI())
@@ -81,18 +93,24 @@ namespace Prime
 
 	void AssetManager::AddTexture2D(const std::string& name, Ref<Texture2D>& texture)
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		PRIME_ASSERT(Texture2DExists(name), "Texture already exist!");
 		s_Data->Textures2D[name] = texture;
 	}
 
 	Ref<Texture2D>& AssetManager::GetTexture2D(const std::string& name)
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		PRIME_ASSERT(!Texture2DExists(name), "Texture not found!");
 		return s_Data->Textures2D[name];
 	}
 
 	bool AssetManager::Texture2DExists(const std::string& name)
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		return s_Data->Textures2D.find(name) != s_Data->Textures2D.end();
 	}
 }

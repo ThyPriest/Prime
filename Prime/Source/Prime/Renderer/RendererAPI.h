@@ -12,7 +12,7 @@ namespace Prime
 		virtual ~RendererAPI() = default;
 
 		virtual void Initialize() = 0;
-		virtual void SetViewPort(int x, int y, uint32_t width, uint32_t height) = 0;
+		virtual void SetViewport(int x, int y, uint32_t width, uint32_t height) = 0;
 
 		virtual void SetClearColor(const glm::vec4& color) = 0;
 		virtual void Clear(bool clearDepthBuffer) = 0;

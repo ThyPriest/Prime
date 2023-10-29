@@ -5,11 +5,10 @@
 
 namespace Prime
 {
-	GameTime::GameTimeData* GameTime::s_Data;
+	GameTime::GameTimeData* GameTime::s_Data = new GameTime::GameTimeData;;
 
 	void GameTime::Initialize(uint32_t fps)
 	{
-		s_Data = new GameTime::GameTimeData;
 		SetFps(fps);
 	}
 

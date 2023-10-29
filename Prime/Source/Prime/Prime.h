@@ -20,6 +20,9 @@
 #include "Input/ModCode.h"
 #include "Input/MouseCode.h"
 
+// Profiler
+#include "Profiler/Profiler.h"
+
 // Renderer
 #include "Renderer/GraphicsContext.h"
 #include "Renderer/RenderCommand.h"

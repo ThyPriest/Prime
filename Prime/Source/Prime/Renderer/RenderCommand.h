@@ -9,8 +9,8 @@ namespace Prime
 	{
 	public:
 		inline static void Initialize();
-		inline static void SetViewPort(int x, int y, uint32_t width, uint32_t height);
-		inline static void SetViewPort(uint32_t width, uint32_t height);
+		inline static void SetViewport(int x, int y, uint32_t width, uint32_t height);
+		inline static void SetViewport(uint32_t width, uint32_t height);
 
 		inline static void SetClearColor(const glm::vec4& color);
 		inline static void Clear(bool clearDepthBuffer = true);

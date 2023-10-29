@@ -8,6 +8,8 @@ namespace Prime
 
 	void LayerStack::Shutdown()
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		for (Layer* layer : s_Data->Layers)
 		{
 			layer->Detach();
@@ -19,6 +21,8 @@ namespace Prime
 
 	Layer* LayerStack::GetTopLayer()
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		for (auto it = s_Data->Layers.end(); it != s_Data->Layers.begin(); )
 		{
 			return (*--it);
@@ -28,12 +32,16 @@ namespace Prime
 
 	bool LayerStack::IsEmpty()
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		if (s_Data->LayerInsertIndex == 0) { return true; }
 		else if (s_Data->LayerInsertIndex > 0) { return false; }
 	}
 
 	void LayerStack::Update()
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		for (Layer* layer : s_Data->Layers)
 		{
 			layer->Update();
@@ -42,6 +50,8 @@ namespace Prime
 
 	void LayerStack::PushLayer(Layer* layer)
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		s_Data->Layers.emplace(s_Data->Layers.begin() + s_Data->LayerInsertIndex, layer);
 		s_Data->LayerInsertIndex++;
 		layer->Attach();
@@ -49,6 +59,8 @@ namespace Prime
 
 	void LayerStack::PushLayerTop(Layer* layer)
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		s_Data->Layers.emplace_back(layer);
 		layer->Attach();
 
@@ -56,6 +68,8 @@ namespace Prime
 
 	void LayerStack::PopLayer(Layer* layer)
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		auto it = std::find(s_Data->Layers.begin(), s_Data->Layers.begin() + s_Data->LayerInsertIndex, layer);
 		if (it != s_Data->Layers.begin() + s_Data->LayerInsertIndex)
 		{
@@ -67,6 +81,8 @@ namespace Prime
 
 	void LayerStack::PopLayerTop(Layer* layer)
 	{
+		PRIME_PROFILE_FUNCTION();
+
 		auto it = std::find(s_Data->Layers.begin() + s_Data->LayerInsertIndex, s_Data->Layers.end(), layer);
 		if (it != s_Data->Layers.end())
 		{

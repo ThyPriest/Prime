@@ -6,6 +6,9 @@ bin-obj/
 # python files
 scripts/__pycache__/
 
+#Log files
+**.log
+
 
 # Visual Studio files and folder
 .vs/
