@@ -36,6 +36,7 @@ namespace Prime
 		Dispatcher::Shutdown();
 		LayerStack::Shutdown();
 		GameTime::Shutdown();
+		Renderer::Shutdown();
 		AssetManager::Shutdown();
 		Logger::Shutdown();
 	}

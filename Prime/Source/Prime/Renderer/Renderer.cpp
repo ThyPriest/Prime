@@ -27,10 +27,17 @@ namespace Prime
 		shader->SetMat4("u_ViewProjectionMatrix", camera2D.GetViewProjectionMatrix());
 
 		s_Data->WhiteTexture->Bind();
+		s_Data->ViewProjection = camera2D.GetViewProjectionMatrix();
+
+		s_Data->QuadIndexCount = 0;
+		s_Data->QuadVertexBufferPtr = s_Data->QuadVertexBufferBase;
 	}
 
 	void Renderer::EndScene2D()
 	{
+		uint32_t dataSize = (uint8_t*)s_Data->QuadVertexBufferPtr - (uint8_t*)s_Data->QuadVertexBufferBase;
+		s_Data->QuadVertexBuffer->SetData(s_Data->QuadVertexBufferBase, dataSize);
+
 		Flush();
 	}
 
@@ -41,15 +48,27 @@ namespace Prime
 
 	void Renderer::DrawQuad2D(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color)
 	{
-		auto shader = AssetManager::GetShader("Quad2D");
-		shader->SetFloat4("u_Color", color);
+		s_Data->QuadVertexBufferPtr->Position = pos;
+		s_Data->QuadVertexBufferPtr->Color = color;
+		s_Data->QuadVertexBufferPtr->TexCoord = { .0f, .0f };
+		s_Data->QuadVertexBufferPtr++;
 
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) *
-			glm::scale(glm::mat4(1.0f), glm::vec3(size, 1.0f));
+		s_Data->QuadVertexBufferPtr->Position = { pos.x + size.x, pos.y, pos.z };
+		s_Data->QuadVertexBufferPtr->Color = color;
+		s_Data->QuadVertexBufferPtr->TexCoord = { 1.0f, .0f };
+		s_Data->QuadVertexBufferPtr++;
 
-		shader->SetMat4("u_Transform", transform);
-		s_Data->QuadVertexArray->Bind();
-		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
+		s_Data->QuadVertexBufferPtr->Position = { pos.x + size.x, pos.y + size.y, pos.z };
+		s_Data->QuadVertexBufferPtr->Color = color;
+		s_Data->QuadVertexBufferPtr->TexCoord = { 1.0f, 1.0f };
+		s_Data->QuadVertexBufferPtr++;
+
+		s_Data->QuadVertexBufferPtr->Position = { pos.x, pos.y + size.y, pos.z };
+		s_Data->QuadVertexBufferPtr->Color = color;
+		s_Data->QuadVertexBufferPtr->TexCoord = { .0f, 1.0f };
+		s_Data->QuadVertexBufferPtr++;
+
+		s_Data->QuadIndexCount += 6;
 	}
 
 	void Renderer::DrawTexture2D(Ref<Texture2D>& texture, Quad2D& quad)
@@ -74,36 +93,45 @@ namespace Prime
 
 	void Renderer::InitializeQuadRendering()
 	{
-		float vertices[5 * 4] = {
-			-.5f, -.5f, .0f,  .0f,  .0f, 
-			 .5f, -.5f, .0f,  1.0f, .0f,
-			 .5f,  .5f, .0f,  1.0f, 1.0f,
-			-.5f,  .5f, .0f,  .0f,  1.0f
-		};
-
-		uint32_t indices[6] = { 0, 1, 2, 2, 3, 0 };
-
 		BufferLayout quadLayout = {
 			{ ShaderDataType::Float3, "a_Position", false },
-			{ ShaderDataType::Float2, "a_TextCoord", false }
+			{ ShaderDataType::Float4, "a_Color", false },
+			{ ShaderDataType::Float2, "a_TextCoord", false },
 		};
 
 		s_Data->QuadVertexArray = VertexArray::Create();
 
-		Ref<VertexBuffer> QuadVB = VertexBuffer::Create(vertices, sizeof(vertices));
-		QuadVB->SetLayout(quadLayout);
-		s_Data->QuadVertexArray->AddVertexBuffer(QuadVB);
+		s_Data->QuadVertexBuffer = VertexBuffer::Create(s_Data->MaxVertices * sizeof(QuadVertex));
+		s_Data->QuadVertexBuffer->SetLayout(quadLayout);
+		s_Data->QuadVertexArray->AddVertexBuffer(s_Data->QuadVertexBuffer);
 
-		Ref<IndexBuffer> QuadIB = IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
+		s_Data->QuadVertexBufferBase = new QuadVertex[s_Data->MaxVertices];
+		uint32_t* quadIndices = new uint32_t[s_Data->MaxIndices];
+
+		uint32_t offset = 0;
+		for (uint32_t i = 0; i < s_Data->MaxIndices; i += 6)
+		{
+			quadIndices[i + 0] = offset + 0;
+			quadIndices[i + 1] = offset + 1;
+			quadIndices[i + 2] = offset + 2;
+
+			quadIndices[i + 3] = offset + 2;
+			quadIndices[i + 4] = offset + 3;
+			quadIndices[i + 5] = offset + 0;
+
+			offset += 4;
+		}
+
+		Ref<IndexBuffer> QuadIB = IndexBuffer::Create(quadIndices, s_Data->MaxIndices);
 		s_Data->QuadVertexArray->SetIndexBuffer(QuadIB);
+		delete[] quadIndices;
 
 		AssetManager::LoadShader("Quad2D", "assets/Shaders/Quad2D.vert", "assets/Shaders/Quad2D.frag");
-
 		s_Data->WhiteTexture = Texture2D::Create(1, 1, Texture2D::Filter::Linear);
 	}
 
 	void Renderer::Flush()
 	{
-
+		RenderCommand::DrawIndexed(s_Data->QuadVertexArray, s_Data->QuadIndexCount);
 	}
 }

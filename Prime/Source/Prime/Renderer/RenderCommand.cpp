@@ -33,6 +33,7 @@ namespace Prime
 
 	inline void RenderCommand::DrawIndexed(Ref<VertexArray>& vertexArray, uint32_t indexCount)
 	{
+		vertexArray->Bind();
 		s_RendererAPI->DrawIndexed(vertexArray, indexCount);
 	}
 }
