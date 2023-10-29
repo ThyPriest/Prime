@@ -14,3 +14,4 @@
 #include <set>
 
 #include "Prime/Core/Core.h"
+#include "Prime/Config/Config.h"

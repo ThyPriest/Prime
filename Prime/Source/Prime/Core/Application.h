@@ -22,6 +22,7 @@ namespace Prime
 
 	private:
 		void Run();
+		void Info();
 
 	private:
 		ApplicationSpec m_Spec;

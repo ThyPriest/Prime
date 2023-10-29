@@ -19,7 +19,8 @@ project "Terra"
 
     includedirs
     {
-        "%{wks.location}/Prime/Source"
+        "%{wks.location}/Prime/Source",
+        "%IncludeDirs.spdlog"
     }
 
 

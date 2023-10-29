@@ -22,7 +22,8 @@ project "Prime"
 
     includedirs
     {
-        "Source"
+        "Source",
+        "%{IncludeDirs.spdlog}"
     }
 
 
